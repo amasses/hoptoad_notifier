@@ -9,12 +9,13 @@ module HoptoadNotifier::RakeHandler
   end
 
   def display_error_message_with_hoptoad(ex)
-    if HoptoadNotifier.configuration.rescue_rake_exceptions || 
-        (HoptoadNotifier.configuration.rescue_rake_exceptions===nil && !self.tty_output?)
+    if HoptoadNotifier.configuration  
+      if HoptoadNotifier.configuration.rescue_rake_exceptions || 
+          (HoptoadNotifier.configuration.rescue_rake_exceptions===nil && !self.tty_output?)
 
-      HoptoadNotifier.notify(ex, :component => reconstruct_command_line, :cgi_data => ENV)
+        HoptoadNotifier.notify(ex, :component => reconstruct_command_line, :cgi_data => ENV)
+      end
     end
-
     display_error_message_without_hoptoad(ex)
   end
 
